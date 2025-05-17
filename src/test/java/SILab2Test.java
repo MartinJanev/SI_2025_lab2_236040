@@ -53,17 +53,15 @@ public class SILab2Test {
         );
         assertEquals("Invalid character in card number!", ex6.getMessage());
 
-        // Test case 7: allItems = [Item("banana", 2, 400, 0.0)], cardNumber = "1234567890123456"
-        // валиден елемент во allItems без discount и валиден cardNumber, ќе помине точно, со тоа што, за секој елемент во allItems, sum += item.getPrice()*item.getQuantity();
-        List<Item> items7 = List.of(new Item("banana", 2, 400, 0.0));
+        // Test case 7: allItems = [Item("banana", 2, 400, 0.0), Item("apple", 3, 300, 0.1)], cardNumber = "1234567890123456"
+        // валидни елементи во allItems, едниот без discount, другиот со discount, и валиден cardNumber. Ќе помине точно, со тоа што, за секој елемент во allItems,
+        // sum += item.getPrice() * item.getQuantity() за првиот елемент, и sum += item.getPrice() * (1 - item.getDiscount()) * item.getQuantity() за вториот елемент.
+        List<Item> items7 = List.of(
+                new Item("banana", 2, 400, 0.0),
+                new Item("apple", 3, 300, 0.1)
+        );
         double result7 = SILab2.checkCart(items7, "1234567890123456");
-        assertEquals(770, result7);
-
-        // Test case 8: allItems = [Item("banana", 2, 400, 0.1)], cardNumber = "1234567890123456"
-        // валиден елемент во allItems со discount и валиден cardNumber, ќе помине точно, со тоа што, за секој елемент во allItems, sum += item.getPrice()*(1-item.getDiscount())*item.getQuantity();
-        List<Item> items8 = List.of(new Item("banana", 2, 400, 0.1));
-        double result8 = SILab2.checkCart(items8, "1234567890123456");
-        assertEquals(690, result8);
+        assertEquals(1550.0, result7);
     }
 
     @Test
